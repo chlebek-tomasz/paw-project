@@ -7,11 +7,8 @@ import com.chlebek.pawproject.model.Director;
 import com.chlebek.pawproject.model.Movie;
 import com.chlebek.pawproject.model.MovieCategory;
 import com.chlebek.pawproject.payload.MovieRequest;
-import com.chlebek.pawproject.repository.DirectorRepository;
-import com.chlebek.pawproject.repository.MovieCategoryRepository;
 import com.chlebek.pawproject.repository.MovieRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
