@@ -1,10 +1,12 @@
 package com.chlebek.pawproject.controller;
 
 import com.chlebek.pawproject.model.Movie;
+import com.chlebek.pawproject.model.Rating;
 import com.chlebek.pawproject.model.Review;
 import com.chlebek.pawproject.payload.MovieRequest;
 import com.chlebek.pawproject.repository.MovieRepository;
 import com.chlebek.pawproject.service.MovieService;
+import com.chlebek.pawproject.service.RatingService;
 import com.chlebek.pawproject.service.ReviewService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,7 @@ public class MovieController {
 
     private final MovieService movieService;
     private final ReviewService reviewService;
+    private final RatingService ratingService;
 
     @GetMapping
     public ResponseEntity<List<Movie>> getMovies(@RequestParam(name = "page", required = false) Integer page,
@@ -63,6 +66,17 @@ public class MovieController {
                                                         @RequestParam(name = "size", required = false) Integer size,
                                                         @PathVariable Long id) {
         return new ResponseEntity<>(reviewService.getMovieReviews(id, page, size), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/ratings")
+    public ResponseEntity<List<Rating>> getMovieRatings(@PathVariable Long id) {
+        return new ResponseEntity<>(ratingService.getRatingsByMovieId(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/ratings/top")
+    public ResponseEntity<List<Movie>> getTopRatedMovies(@RequestParam(name = "page", required = false) Integer page,
+                                                         @RequestParam(name = "size", required = false) Integer size) {
+        return new ResponseEntity<>(movieService.getTopRatedMovies(page, size), HttpStatus.OK);
     }
 
 

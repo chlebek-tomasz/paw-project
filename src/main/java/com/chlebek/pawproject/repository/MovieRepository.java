@@ -16,4 +16,5 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     Page<Movie> findAllByCategoryIdAndTitle(Pageable pageable, Long categoryId, String title);
     Page<Movie> findAllByDirectorIdAndTitle(Pageable pageable, Long directorId, String title);
     Page<Movie> findAllByCategoryIdAndDirectorIdAndTitle(Pageable pageable, Long categoryId, Long directorId, String title);
+    Page<Movie> findAllByOrderByRatingDesc(Pageable pageable);
 }

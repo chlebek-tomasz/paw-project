@@ -87,6 +87,12 @@ public class MovieService {
         else return getMovies(page, size);
     }
 
+    public List<Movie> getTopRatedMovies(Integer page, Integer size) {
+        page = page == null ? 0 : page;
+        size = size == null ? 10 : size;
+        return movieRepository.findAllByOrderByRatingDesc(PageRequest.of(page, size)).getContent();
+    }
+
     private Movie buildMovieObject(MovieRequest request) {
         MovieCategory movieCategory = movieCategoryService.getMovieCategoryById(request.getMovieCategoryId());
         Director director = directorService.getDirectorById(request.getDirectorId());
