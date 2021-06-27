@@ -2,6 +2,7 @@ package com.chlebek.pawproject.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -24,9 +25,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/api/**")
+        http.cors().and().csrf()
+                .disable()
+                .authorizeRequests()
+                .antMatchers(HttpMethod.GET)
                 .permitAll()
+                .antMatchers(HttpMethod.DELETE)
+                .authenticated()
+                .antMatchers(HttpMethod.PUT)
+                .authenticated()
+                .antMatchers(HttpMethod.POST)
+                .authenticated()
                 .antMatchers("/v2/api-docs",
                         "/v3/api-docs",
                         "/configuration/ui",
